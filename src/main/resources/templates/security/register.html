@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Register</title>
+<link rel="stylesheet" type="text/css" th:href="@{/CSS/login.css}">
+</head>
+<body>
+	
+	 <div class="container">
+		 <style>
+			 .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: none;
+}
+
+.notification.show {
+    display: block;
+    animation: fadeOut 5s ease;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+		 </style>
+		 <div id="notification-container"></div>
+		 <script th:inline="javascript">
+    /*<![CDATA[*/
+    var successMessage = /*[[${successMessage}]]*/ '';
+    if (successMessage.trim() !== '') {
+        displayNotification(successMessage, 'success');
+    }
+
+    function displayNotification(message, type) {
+        var notificationContainer = document.getElementById('notification-container');
+        var notification = document.createElement('div');
+        notification.classList.add('notification');
+        notification.classList.add(type);
+        notification.textContent = message;
+        notificationContainer.appendChild(notification);
+        setTimeout(function() {
+            notification.classList.add('show');
+        }, 100); // Delay to ensure CSS animation works correctly
+        setTimeout(function() {
+            notification.remove();
+        }, 5000); // Adjust the duration as needed
+    }
+    /*]]>*/
+</script>
+
+      <h1 class="form-title">Registration</h1>
+      <form th:action="@{/register/save}" th:object="${newAccount}" method="POST">
+        <div class="main-user-info">
+          <div class="user-input-box">
+            <label for="fullName">Username</label>
+            <input type="text"
+                    id="username"
+                    name="username"
+                    required="required"
+                    placeholder="Username"  th:field="${newAccount.userName}"/>
+          </div>
+          <div class="user-input-box">
+            <label for="username">Password</label>
+            <input type="password"
+                    id="password"
+                    name="password"
+                     required="required"
+                    placeholder="Password" th:field="${newAccount.password}"/>
+          </div>
+          <div class="user-input-box">
+            <label for="email">Email</label>
+            <input type="email"
+                    id="email"
+                    name="email"
+                     required="required"
+                    placeholder="Enter Email" th:field="${newAccount.email}"/>
+          </div>
+          <div class="user-input-box">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                     required="required"
+                    placeholder="Enter Phone Number" th:field="${newAccount.phoneNumber}"/>
+          </div>
+          <div class="user-input-box">
+            <label for="password">FirstName</label>
+            <input type="text"
+                    id="firstName"
+                    name="firstName"
+                     required="required"
+                    placeholder="Enter Firstname" th:field="${newAccount.firstName}"/>
+          </div>
+          <div class="user-input-box">
+            <label for="confirmPassword">LastName</label>
+            <input type="text"
+                    id="lastName"
+                    name="lastName"
+                     required="required"
+                    placeholder="Last Name" th:field="${newAccount.lastName}"/>
+          </div>
+          
+          <div class="user-input-box">
+            <label for="confirmPassword">Address</label>
+            <input type="text"
+                    id="address"
+                    name="address"
+                     required="required"
+                    placeholder="Address" th:field="${newAccount.address}"/>
+          </div>
+          
+          <div class="user-input-box">
+            <label for="confirmPassword">City</label>
+            <input type="text"
+                    id="city"
+                    name="city"
+                     required="required"
+                    placeholder="City" th:field="${newAccount.city}"/>
+          </div>
+        </div>
+        <div class="form-submit-btn">
+          <input type="submit" value="Register">
+        </div>
+        <br><a href="login">Go back to login</a>
+      </form>
+    </div>
+</body>
+</html>
